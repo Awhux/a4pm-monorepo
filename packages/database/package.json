@@ -1,0 +1,48 @@
+{
+  "name": "@a4pm-receitas/database",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Database package for A4PM Receitas",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "dist/**"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./server": {
+      "types": "./dist/server/index.d.ts",
+      "import": "./dist/server/index.mjs",
+      "require": "./dist/server/index.js"
+    }
+  },
+  "scripts": {
+    "postinstall": "tsx ./scripts/fresh.ts",
+    "prebuild": "tsx ./scripts/prepare.ts && prisma generate && tsup",
+    "build": "tsup",
+    "db:seed": "tsx ./src/seed.ts",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:reset": "prisma migrate reset --force && tsx ./src/reset.ts",
+    "db:studio": "prisma studio",
+    "format": "biome format --write",
+    "lint": "biome check",
+    "lint:fix": "biome check --write"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.2.0",
+    "@types/node": "^22.19.1",
+    "prisma": "^6.18.0"
+  },
+  "dependencies": {
+    "@dotenvx/dotenvx": "^1.51.1",
+    "@prisma/client": "^6.18.0",
+    "tsup": "^8.5.1"
+  }
+}
