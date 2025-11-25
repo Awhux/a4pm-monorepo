@@ -1,0 +1,3 @@
+CREATE DATABASE IF NOT EXISTS receitas_shadow;
+GRANT ALL PRIVILEGES ON *.* TO 'receitas_shadow'@'%';
+FLUSH PRIVILEGES;
