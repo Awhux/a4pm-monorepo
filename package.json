@@ -1,0 +1,36 @@
+{
+  "name": "@a4pm-receitas/monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Monorepo for the a4pm interview.",
+  "scripts": {
+    "postinstall": "tsx scripts/fresh.ts",
+    "prepare": "turbo run prebuild",
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "dev:app": "turbo dev --filter=@a4pm-receitas/app",
+    "dev:api": "turbo dev --filter=@a4pm-receitas/api",
+    "test": "turbo test",
+    "test:e2e": "turbo test:e2e",
+    "dev:up": "tsx scripts/compose.ts --profile dev up -d",
+    "dev:down": "tsx scripts/compose.ts --profile dev down",
+    "up:production": "tsx scripts/compose.ts --profile production up -d",
+    "down:production": "tsx scripts/compose.ts --profile production down",
+    "lint": "turbo lint",
+    "lint:fix": "turbo lint:fix",
+    "format": "turbo run format",
+    "db:seed": "turbo run db:seed",
+    "db:migrate": "cd packages/database && pnpm db:migrate",
+    "db:reset": "turbo run db:reset",
+    "db:studio": "turbo run db:studio",
+    "db:generate": "turbo run db:generate"
+  },
+  "packageManager": "pnpm@10.22.0",
+  "devDependencies": {
+    "@biomejs/biome": "2.2.0",
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "turbo": "^2.5.8",
+    "typescript": "5.9.2"
+  }
+}

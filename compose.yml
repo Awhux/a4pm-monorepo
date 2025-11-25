@@ -1,0 +1,50 @@
+name: a4pm-receitas-compose
+
+services:
+  mysql:
+    container_name: a4pm-mysql
+    image: mysql:8.0
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./docker/mysql/init.d.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: receitas
+      MYSQL_USER: receitas
+      MYSQL_PASSWORD: receitas
+    command: --default-authentication-plugin=mysql_native_password
+    profiles: ["dev", "production"]
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+      # target: runner
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: mysql://receitas:receitas@mysql:3306/receitas
+      JWT_SECRET: production_secret_key_change_this
+      API_PORT: 8000
+      CORS_ALLOWED_ORIGINS: http://localhost
+      NODE_ENV: production
+    profiles: ["production"]
+
+  app:
+    build:
+      context: .
+      dockerfile: apps/app/Dockerfile
+      # target: runner
+      args:
+        VITE_API_URL: http://localhost:8000
+    restart: always
+    ports:
+      - "80:80"
+    profiles: ["production"]
+
+volumes:
+  mysql-data:

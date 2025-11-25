@@ -1,0 +1,110 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [
+    "**/.env",
+    "**/.env.*"
+  ],
+  "ui": "stream",
+  "tasks": {
+    "build": {
+      "dependsOn": [
+        "^db:generate",
+        "^prebuild",
+        "^build"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "**/.env",
+        "**/.env.*"
+      ],
+      "outputs": [
+        "dist/**"
+      ]
+    },
+    "lint": {
+      "outputLogs": "new-only",
+      "dependsOn": [
+        "^db:generate",
+        "^lint"
+      ]
+    },
+    "lint:fix": {
+      "outputLogs": "new-only",
+      "dependsOn": [
+        "^db:generate",
+        "^lint:fix"
+      ]
+    },
+    "prebuild": {
+      "outputLogs": "errors-only",
+      "dependsOn": [
+        "^db:generate",
+        "^prebuild"
+      ],
+      "outputs": [
+        "dist/**"
+      ]
+    },
+    "dev": {
+      "dependsOn": [
+        "^db:generate",
+        "^prebuild"
+      ],
+      "cache": false,
+      "persistent": true
+    },
+    "db:generate": {
+      "outputLogs": "hash-only",
+      "cache": true
+    },
+    "db:seed": {
+      "dependsOn": [
+        "db:generate"
+      ],
+      "cache": false
+    },
+    "db:migrate": {
+      "dependsOn": [
+        "db:generate"
+      ],
+      "cache": false,
+      "persistent": true
+    },
+    "db:reset": {
+      "cache": false
+    },
+    "db:studio": {
+      "dependsOn": [
+        "db:generate"
+      ],
+      "cache": false,
+      "persistent": true
+    },
+    "test": {
+      "dependsOn": [
+        "^db:generate"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "**/.env.test",
+        "**/.env.test.*"
+      ]
+    },
+    "test:e2e": {
+      "dependsOn": [
+        "^db:generate"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "**/.env.test",
+        "**/.env.test.*"
+      ]
+    },
+    "format": {
+      "outputLogs": "hash-only",
+      "outputs": [
+        "**/*.{js,jsx,ts,tsx,json,css,md}"
+      ]
+    }
+  }
+}
