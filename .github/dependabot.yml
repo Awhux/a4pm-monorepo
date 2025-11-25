@@ -12,6 +12,42 @@ updates:
     commit-message:
       include: 'scope'
 
+  - package-ecosystem: 'npm'
+    directory: '/apps/api'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '09:00'
+    open-pull-requests-limit: 10
+    assignees:
+      - 'Awhux'
+    commit-message:
+      include: 'scope'
+
+  - package-ecosystem: 'npm'
+    directory: '/apps/app'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '09:00'
+    open-pull-requests-limit: 10
+    assignees:
+      - 'Awhux'
+    commit-message:
+      include: 'scope'
+
+  - package-ecosystem: 'npm'
+    directory: '/packages/database'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '09:00'
+    open-pull-requests-limit: 10
+    assignees:
+      - 'Awhux'
+    commit-message:
+      include: 'scope'
+
   - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:
