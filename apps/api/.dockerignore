@@ -1,0 +1,70 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Source control
+.git/
+.gitignore
+.gitattributes
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# IDEs and editors
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+.project
+.classpath
+.settings/
+
+# Testing
+coverage/
+.nyc_output/
+jest.config.js
+*.spec.ts
+*.test.ts
+test/
+__tests__/
+__mocks__/
+
+# Temp files
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+Thumbs.db
+
+# Build output
+dist/
+build/
+*.tsbuildinfo
+
+# Prisma
+*.db
+*.db-journal
+
+# Project specific
+README.md
+CHANGELOG.md
+docker-compose*.yml
+Dockerfile*
+.dockerignore
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# Development configs
+.eslintrc
+.eslintignore
+.prettierrc
+.prettierignore
+nodemon.json
+tsconfig.build.json
