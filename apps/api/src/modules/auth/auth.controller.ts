@@ -16,7 +16,7 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard'
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) { }
 
   @Post('login')
   @ApiOperation({ summary: 'Login with username and password' })
@@ -36,7 +36,7 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Get('me')
   @ApiOperation({ summary: 'Get current user profile' })
-  getProfile(@Request() req) {
-    return req.user
+  async getProfile(@Request() req) {
+    return this.authService.getProfile(req.user.id)
   }
 }

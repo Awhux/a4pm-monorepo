@@ -11,6 +11,7 @@ describe('AuthController', () => {
   const mockAuthService = {
     login: jest.fn(),
     logout: jest.fn(),
+    getProfile: jest.fn(),
   }
 
   const mockResponse = {} as unknown as Response
@@ -58,10 +59,14 @@ describe('AuthController', () => {
   })
 
   describe('getProfile', () => {
-    it('should return req.user', () => {
+    it('should return user profile', async () => {
       const req = { user: { id: 1, login: 'test' } }
-      const result = controller.getProfile(req)
-      expect(result).toEqual(req.user)
+      const expectedUser = { id: 1, login: 'test', name: 'Test User' }
+      mockAuthService.getProfile.mockResolvedValue(expectedUser)
+
+      const result = await controller.getProfile(req)
+      expect(authService.getProfile).toHaveBeenCalledWith(req.user.id)
+      expect(result).toEqual(expectedUser)
     })
   })
 })

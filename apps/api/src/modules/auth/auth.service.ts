@@ -49,4 +49,13 @@ export class AuthService {
     response.clearCookie('access_token')
     return { message: 'Logged out successfully' }
   }
+
+  async getProfile(id: number) {
+    const user = await this.usersService.findById(id)
+    if (!user) {
+      return null
+    }
+    const { password, ...result } = user
+    return result
+  }
 }

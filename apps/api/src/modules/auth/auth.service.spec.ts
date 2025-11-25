@@ -14,6 +14,7 @@ describe('AuthService', () => {
 
   const mockUsersService = {
     findByLogin: jest.fn(),
+    findById: jest.fn(),
   }
 
   const mockJwtService = {
@@ -122,6 +123,23 @@ describe('AuthService', () => {
       const result = service.logout(mockResponse)
       expect(mockResponse.clearCookie).toHaveBeenCalledWith('access_token')
       expect(result).toEqual({ message: 'Logged out successfully' })
+    })
+  })
+
+  describe('getProfile', () => {
+    it('should return user profile without password', async () => {
+      const user = { id: 1, login: 'test', password: 'hashedPassword', name: 'Test' }
+      mockUsersService.findById.mockResolvedValue(user)
+
+      const result = await service.getProfile(1)
+      expect(mockUsersService.findById).toHaveBeenCalledWith(1)
+      expect(result).toEqual({ id: 1, login: 'test', name: 'Test' })
+    })
+
+    it('should return null if user not found', async () => {
+      mockUsersService.findById.mockResolvedValue(null)
+      const result = await service.getProfile(1)
+      expect(result).toBeNull()
     })
   })
 })
