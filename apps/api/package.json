@@ -43,7 +43,7 @@
     "crypto-js": "^4.2.0",
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.7",
-    "express": "^5.1.0",
+    "express": "^5.2.0",
     "multer": "2.0.2",
     "nanoid": "^5.1.5",
     "passport": "^0.7.0",
